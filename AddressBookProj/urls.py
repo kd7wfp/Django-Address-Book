@@ -18,7 +18,8 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path('AddressBook', include('AddressBook.urls')),
+    path('AddressBook/', include('AddressBook.urls')),
+    path('AddressBookUsers/', include('AddressBookUsers.urls')),
     path('admin/', admin.site.urls),
-    path('', views.navToAddressBook, name='navToAddressBook'),
+    path('', views.navToAddressBookLogin, name='navToAddressBookLogin'),
 ]

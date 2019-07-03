@@ -1,0 +1,9 @@
+{% if contact_list %}
+    <ul>
+    {% for contact in contact_list %}
+        <li><a href="/AddressBook/contact/{{ contact.id }}/">{{ contact.email }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
