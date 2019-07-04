@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Contact
@@ -14,8 +14,13 @@ def index(request):
     f.close()
     return HttpResponse(file_content, content_type="text/plain")
 
-def contact(request, contact):
-    return HttpResponse("You're looking at contact %s." % contact)
+def contact(request, contact_id):
+    contactObj = get_object_or_404(Contact, pk=contact_id)
+    template = loader.get_template('AddressBook/contact.html')
+    context = {
+        'contact': contactObj,
+    }    
+    return HttpResponse(template.render(context, request))
 
 def createContact(request):
     return HttpResponse("You're looking at createContact")
@@ -25,7 +30,7 @@ def deleteContact(request, contact):
 
 def list(request):
     contact_list = Contact.objects.order_by('last_name')[:5]
-    template = loader.get_template('AddressBook/index.html')
+    template = loader.get_template('AddressBook/list.html')
     context = {
         'contact_list': contact_list,
     }
